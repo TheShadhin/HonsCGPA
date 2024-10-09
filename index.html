@@ -104,21 +104,23 @@
             newLi.className = `gpa-calculator__course-li course-${courseCount}`;
 
             newLi.innerHTML = `
-                <select class="gpa-calculator__grade grades-${courseCount}" name="grade" id="grade-${courseCount}">
-                    <option value="grade">Grade</option>
-                    <option value="4.0">A+</option>
-                    <option value="3.75">A</option>
-                    <option value="3.50">A-</option>
-                    <option value="3.25">B+</option>
-                    <option value="3.0">B</option>
-                    <option value="2.75">B-</option>
-                    <option value="2.50">C+</option>
-                    <option value="2.25">C</option>
-                    <option value="2.0">D</option>
-                    <option value="0.0">F</option>
-                </select>
-                <input type="number" name="credits" step="1" min="0" max="5" id="credits-${courseCount}" value="4" class="gpa-calculator__credits credits-${courseCount}" placeholder="Credits">
-            `;
+    <span>Sub ${courseCount + 1}</span>
+    <select class="gpa-calculator__grade grades-${courseCount}" name="grade" id="grade-${courseCount}">
+        <option value="grade">Grade</option>
+        <option value="4.0">A+</option>
+        <option value="3.75">A</option>
+        <option value="3.50">A-</option>
+        <option value="3.25">B+</option>
+        <option value="3.0">B</option>
+        <option value="2.75">B-</option>
+        <option value="2.50">C+</option>
+        <option value="2.25">C</option>
+        <option value="2.0">D</option>
+        <option value="0.0">F</option>
+    </select>
+    <input type="number" name="credits" step="1" min="0" max="5" id="credits-${courseCount}" value="4" class="gpa-calculator__credits credits-${courseCount}" placeholder="Credits">
+`;
+
 
             ul.appendChild(newLi);
             courseCount++;
