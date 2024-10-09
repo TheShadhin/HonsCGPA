@@ -156,24 +156,31 @@
         });
 
         function calculateGPA() {
-            let totalPoints = 0;
-            let totalCredits = 0;
+    // Check if the number of subjects is less than 8
+    if (courseCount < 8) {
+        alert("Warning: CGPA বের করার জন্য আপনার সকল বিষয়ের গ্রেড এড করতে হবে");
+        return; // Stop the function execution
+    }
 
-            // Loop through all the courses to get the selected grade and credits
-            document.querySelectorAll('.gpa-calculator__course-li').forEach(function (course, index) {
-                let gradeValue = parseFloat(document.querySelector(`#grade-${index}`).value);
-                let creditsValue = parseFloat(document.querySelector(`.credits-${index}`).value);
+    let totalPoints = 0;
+    let totalCredits = 0;
 
-                if (!isNaN(gradeValue) && !isNaN(creditsValue)) {
-                    totalPoints += gradeValue * creditsValue;
-                    totalCredits += creditsValue;
-                }
-            });
+    // Loop through all the courses to get the selected grade and credits
+    document.querySelectorAll('.gpa-calculator__course-li').forEach(function (course, index) {
+        let gradeValue = parseFloat(document.querySelector(`#grade-${index}`).value);
+        let creditsValue = parseFloat(document.querySelector(`.credits-${index}`).value);
 
-            // Calculate GPA
-            let gpa = totalCredits ? totalPoints / totalCredits : 0;
-            document.getElementById('gpa-result').textContent = gpa.toFixed(2);
+        if (!isNaN(gradeValue) && !isNaN(creditsValue)) {
+            totalPoints += gradeValue * creditsValue;
+            totalCredits += creditsValue;
         }
+    });
+
+    // Calculate GPA
+    let gpa = totalCredits ? totalPoints / totalCredits : 0;
+    document.getElementById('gpa-result').textContent = gpa.toFixed(2);
+}
+
     </script>
 </body>
 </html>
