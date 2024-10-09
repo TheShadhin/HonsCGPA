@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGPA Calculator</title>
     <style>
-       
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            
         }
 
         #gpa-calculator__courses {
@@ -29,7 +30,7 @@
             padding: 10px;
         }
 
-        select, input[type="number"], button {
+        select, button {
             margin-right: 10px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -50,6 +51,13 @@
 
         p {
             font-size: 20px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-start; /* Align buttons to the left */
+            width: 100%;
         }
 
         @media (max-width: 600px) {
@@ -58,7 +66,7 @@
                 align-items: flex-start;
             }
 
-            select, input[type="number"], button {
+            select, button {
                 width: 100%;
                 margin-bottom: 10px;
             }
@@ -69,6 +77,7 @@
     <h1>GPA Calculator</h1>
     <ul id="gpa-calculator__courses">
         <li class="gpa-calculator__course-li course-0">
+            <span>Sub 1</span>
             <select class="gpa-calculator__grade grades-0" name="grade" id="grade-0">
                 <option value="grade">Grade</option>
                 <option value="4.0">A+</option>
@@ -82,7 +91,7 @@
                 <option value="2.0">D</option>
                 <option value="0.0">F</option>
             </select>
-            <input type="number" name="credits" step="1" min="0" max="5" id="credits-0" value="4" class="gpa-calculator__credits credits-0" placeholder="Credits">
+            <input type="hidden" name="credits" value="4" class="gpa-calculator__credits credits-0">
         </li>
     </ul>
     
@@ -90,8 +99,7 @@
         <button id="add-subject">Add Subject</button>
         <button onclick="calculateGPA()">Calculate GPA</button>
     </div>
-
-    <p>Your GPA: <span id="gpa-result">0.00</span></p>
+    <p>Your CGPA: <span id="gpa-result">0.00</span></p>
 
     <!-- JavaScript code -->
     <script>
@@ -104,23 +112,22 @@
             newLi.className = `gpa-calculator__course-li course-${courseCount}`;
 
             newLi.innerHTML = `
-    <span>Sub ${courseCount + 1}</span>
-    <select class="gpa-calculator__grade grades-${courseCount}" name="grade" id="grade-${courseCount}">
-        <option value="grade">Grade</option>
-        <option value="4.0">A+</option>
-        <option value="3.75">A</option>
-        <option value="3.50">A-</option>
-        <option value="3.25">B+</option>
-        <option value="3.0">B</option>
-        <option value="2.75">B-</option>
-        <option value="2.50">C+</option>
-        <option value="2.25">C</option>
-        <option value="2.0">D</option>
-        <option value="0.0">F</option>
-    </select>
-    <input type="number" name="credits" step="1" min="0" max="5" id="credits-${courseCount}" value="4" class="gpa-calculator__credits credits-${courseCount}" placeholder="Credits">
-`;
-
+                <span>Sub ${courseCount + 1}</span>
+                <select class="gpa-calculator__grade grades-${courseCount}" name="grade" id="grade-${courseCount}">
+                    <option value="grade">Grade</option>
+                    <option value="4.0">A+</option>
+                    <option value="3.75">A</option>
+                    <option value="3.50">A-</option>
+                    <option value="3.25">B+</option>
+                    <option value="3.0">B</option>
+                    <option value="2.75">B-</option>
+                    <option value="2.50">C+</option>
+                    <option value="2.25">C</option>
+                    <option value="2.0">D</option>
+                    <option value="0.0">F</option>
+                </select>
+                <input type="hidden" name="credits" value="4" class="gpa-calculator__credits credits-${courseCount}">
+            `;
 
             ul.appendChild(newLi);
             courseCount++;
@@ -133,7 +140,7 @@
             // Loop through all the courses to get the selected grade and credits
             document.querySelectorAll('.gpa-calculator__course-li').forEach(function (course, index) {
                 let gradeValue = parseFloat(document.querySelector(`#grade-${index}`).value);
-                let creditsValue = parseFloat(document.querySelector(`#credits-${index}`).value);
+                let creditsValue = parseFloat(document.querySelector(`.credits-${index}`).value);
 
                 if (!isNaN(gradeValue) && !isNaN(creditsValue)) {
                     totalPoints += gradeValue * creditsValue;
